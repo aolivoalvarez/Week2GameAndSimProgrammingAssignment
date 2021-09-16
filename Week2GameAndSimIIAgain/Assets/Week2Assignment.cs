@@ -6,11 +6,17 @@ using System;
 public class Week2Assignment : MonoBehaviour
 {
     public string sentence = " ";
+    public List<string> words = new List<string>();
+    string displayResult = " ";
+
     // Start is called before the first frame update
     void Start()
     {
         Function1();
         Function2(sentence);
+        displayResult = Function3(words);
+        Debug.Log("Each of the following letters show up in your list at least once: " + displayResult);
+
     }
 
     // Update is called once per frame
@@ -38,8 +44,8 @@ public class Week2Assignment : MonoBehaviour
     void Function2(string s)
     {
         char[] alphabet = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
-                                           'p','q','r','s','t','u','v','w','x','y','z'};
-        int[] counter = new int[26];
+                                           'p','q','r','s','t','u','v','w','x','y','z', ' '};
+        int[] counter = new int[27];
 
         int largest = 0;
         char most = ' ';
@@ -63,5 +69,30 @@ public class Week2Assignment : MonoBehaviour
         }
 
         Debug.Log("The letter \"" + most + "\" appears the most in your sentence");
+    }
+
+    string Function3(List<string> s)
+    {
+        string result = " ";
+
+        char[] alphabet = new char[] {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
+                                           'p','q','r','s','t','u','v','w','x','y','z'};
+        int[] counter = new int[26];
+
+        foreach (string entry in s)
+        {
+            foreach (char letter in entry)
+            {
+                int position = Array.IndexOf(alphabet, letter);
+
+                if (counter[position] < 1)
+                {
+                    result += letter;
+                    counter[position]++;
+                }
+            }
+        }
+
+        return result;
     }
 }
